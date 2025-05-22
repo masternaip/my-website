@@ -1,458 +1,311 @@
+/* --- Base Styles --- */
+* { margin: 0; padding: 0; box-sizing: border-box; }
 body {
-    font-family: 'Inter', sans-serif;
-    margin: 0;
-    background-color: #1a1a1a;
-    color: #f0f0f0;
-    overflow-x: hidden; /* Prevent horizontal scroll due to lists */
+    font-family: 'Netflix Sans', sans-serif; /* Assuming you'll add this font */
+    background-color: #141414; /* Netflix dark background */
+    color: #e5e5e5; /* Light gray text */
 }
 
-.container {
-    width: 90%;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 15px;
-}
+/* --- Font (You'll need to include this in your <head> or via CSS) --- */
+/* Example using Google Fonts: <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap" rel="stylesheet"> */
+/* For a closer Netflix feel, you might need to find a similar licensed font or use a web-safe alternative like 'Segoe UI', Tahoma, sans-serif; */
 
-header {
-    background-color: #0d0d0d;
-    padding: 20px 0;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
-    position: sticky;
-    top: 0;
-    z-index: 5;
-}
-
-header .container {
+/* --- Navbar --- */
+.navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding: 15px 20px; /* More horizontal padding */
+    background-color: #141414; /* Keep dark background */
+    /* Add a subtle dark gradient at the bottom for visual separation */
+    background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.7) 0%, transparent 100%);
+    position: fixed; /* Stick to the top */
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 100; /* Ensure it's above other elements */
 }
 
-header h1 {
-    margin: 0;
-    font-size: 2.2em;
-    color: #e50914; /* Netflix red */
+.navbar img {
+    height: 35px; /* Adjust logo size */
+    margin-right: 20px;
 }
 
-#search-button {
-    background-color: #e50914;
-    color: white;
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.nav-links a {
+    color: #e5e5e5;
+    text-decoration: none;
+    font-size: 0.9em;
+}
+
+.search-bar {
+    padding: 8px 12px;
+    border-radius: 4px;
     border: none;
+    background-color: #222; /* Darker background for search */
+    color: #e5e5e5;
+    font-size: 0.9em;
+    width: 150px; /* Initial width */
+    transition: width 0.3s ease; /* Smooth width transition */
+}
+
+.search-bar:focus {
+    outline: none;
+    width: 250px; /* Expand on focus */
+}
+
+/* --- Banner --- */
+.banner {
+    height: 70vh; /* Larger banner area */
+    background-size: cover;
+    background-position: center; /* Center the background image */
+    display: flex;
+    flex-direction: column; /* Stack title and buttons */
+    justify-content: center; /* Center content vertically */
+    padding: 20px 50px; /* More horizontal padding */
+    /* Add a dark gradient at the bottom for text readability */
+    background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, #141414 80%);
+    color: white; /* White text on banner */
+}
+
+.banner h1 {
+    font-size: 3em;
+    font-weight: bold;
+    margin-bottom: 15px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8); /* Add text shadow */
+}
+
+/* You might want to add buttons like "Play" and "My List" here */
+
+/* --- Rows and Lists --- */
+.row {
+    margin: 20px 0; /* More vertical margin */
+    padding: 0 20px; /* Horizontal padding for content */
+}
+
+/* Style for the Mediafire Download button */
+#download-mediafire-button {
+    background-color: #0080ff; /* Mediafire blue */
+    color: white;
     padding: 10px 20px;
+    border: none;
     border-radius: 5px;
     cursor: pointer;
     font-size: 1em;
+    margin-top: 10px; /* Add some space below the video */
     transition: background-color 0.3s ease;
 }
 
-#search-button:hover {
-    background-color: #b2070c;
+#download-mediafire-button:hover {
+    background-color: #0066cc;
 }
 
-/* --- Swiper Banner Styles --- */
-#banner.swiper-container {
-    width: 100%;
-    height: 400px; /* Fixed height for the banner */
-    background-color: #333;
-    margin-bottom: 30px;
-    position: relative;
-}
-
-#banner .swiper-slide {
-    background-size: cover;
-    background-position: center;
-    display: flex;
-    align-items: flex-end;
-    padding: 30px;
+.row h2 {
+    margin-bottom: 15px;
+    font-size: 1.5em;
+    font-weight: bold;
     color: white;
 }
 
-#banner .swiper-slide h2 {
-    font-size: 3em;
-    font-weight: bold;
-    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.8);
-    margin: 0;
-}
-
-.swiper-pagination-bullet {
-    background: rgba(255, 255, 255, 0.5) !important;
-}
-
-.swiper-pagination-bullet-active {
-    background: white !important;
-}
-
-.swiper-button-next, .swiper-button-prev {
-    color: white !important;
-    --swiper-navigation-size: 30px;
-}
-
-/* --- List Sections --- */
-.list-section {
-    margin-bottom: 40px;
-}
-
-.list-section h2 {
-    font-size: 1.8em;
-    margin-bottom: 20px;
-    color: #f0f0f0;
-    border-left: 5px solid #e50914;
-    padding-left: 10px;
-}
-
-.image-list {
+.list {
     display: flex;
-    overflow-x: auto; /* Enable horizontal scrolling */
-    gap: 15px;
-    padding-bottom: 15px; /* Space for scrollbar */
-    -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
-    scrollbar-width: thin; /* Firefox */
-    scrollbar-color: #e50914 #333; /* Firefox */
+    overflow-x: auto;
+    padding-bottom: 15px;
 }
 
-.image-list::-webkit-scrollbar {
-    height: 8px;
-}
-
-.image-list::-webkit-scrollbar-track {
-    background: #333;
-    border-radius: 10px;
-}
-
-.image-list::-webkit-scrollbar-thumb {
-    background: #e50914;
-    border-radius: 10px;
-}
-
-.image-list img {
-    width: 150px; /* Fixed width for posters */
-    height: 225px; /* Fixed height for posters (1.5 aspect ratio) */
-    object-fit: cover;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+.list img {
+    width: 200px; /* Larger poster size */
+    margin-right: 10px;
     cursor: pointer;
-    flex-shrink: 0; /* Prevent images from shrinking */
+    border-radius: 4px;
+    transition: transform 0.2s ease;
 }
 
-.image-list img:hover {
-    transform: scale(1.05);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.8);
+.list img:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.3); /* Subtle glow on hover */
+    z-index: 2;
 }
 
-/* --- Modal Styles --- */
+/* --- Modal --- */
 .modal {
-    display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 100; /* Sit on top */
-    left: 0;
-    top: 0;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
-    background-color: rgba(0, 0, 0, 0.8); /* Black w/ opacity */
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background-color: rgba(0, 0, 0, 0.9); /* Darker modal background */
+    display: none;
     justify-content: center;
     align-items: center;
+    z-index: 1000; /* Ensure it's on top */
     padding: 20px;
-    box-sizing: border-box;
 }
 
 .modal-content {
-    background-color: #2a2a2a;
-    margin: auto;
-    padding: 30px;
-    border-radius: 10px;
-    max-width: 900px;
-    width: 95%;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.7);
+    background-color: #141414; /* Dark modal content */
+    padding: 20px;
+    width: 90%;
+    max-width: 700px; /* Slightly wider modal */
+    text-align: left; /* Align text to the left in modal */
     position: relative;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
+    border-radius: 4px;
 }
 
-.modal-content.search-content {
-    max-width: 800px; /* Adjust for search modal */
+.modal img {
+    width: 40%; /* Adjust image width in modal */
+    border-radius: 4px;
+    float: left; /* Image on the left */
+    margin-right: 20px;
+    margin-bottom: 10px;
 }
 
-.close-button {
-    color: #aaa;
-    position: absolute;
-    top: 15px;
-    right: 25px;
-    font-size: 35px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: color 0.3s ease;
-}
-
-.close-button:hover,
-.close-button:focus {
+.modal h2 {
     color: white;
-    text-decoration: none;
+    font-size: 1.8em;
+    margin-bottom: 10px;
 }
 
-#modal-title {
-    color: #e50914;
-    font-size: 2.5em;
-    margin-bottom: 15px;
-    text-align: center;
+.stars {
+    color: #ffc107; /* Gold/yellow for stars */
+    font-size: 1.2em;
+    margin-bottom: 10px;
 }
 
-.modal-body-content {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
-.modal-body-content #modal-image {
-    width: 100%;
-    max-width: 250px;
-    height: auto;
-    border-radius: 8px;
-    align-self: center; /* Center image in column layout */
-}
-
-.modal-text-content {
-    flex-grow: 1;
-}
-
-#modal-description {
-    font-size: 1.1em;
+.modal p {
+    color: #e5e5e5;
     line-height: 1.6;
     margin-bottom: 15px;
-    color: #ccc;
 }
 
-#modal-rating {
-    font-size: 1.5em;
-    color: #FFD700; /* Gold color for stars */
-}
-
-#modal-rating span {
-    color: #666; /* Color for empty stars */
-}
-
-.watch-options {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin-top: 15px;
-}
-
-.watch-options label {
-    font-size: 1em;
-    color: #f0f0f0;
-}
-
-.watch-options select {
-    padding: 10px;
-    border-radius: 5px;
-    border: 1px solid #555;
-    background-color: #333;
-    color: #f0f0f0;
-    font-size: 1em;
+.close {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    color: #e5e5e5;
+    font-size: 2em;
     cursor: pointer;
-    appearance: none; /* Remove default arrow */
-    background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23f0f0f0%22%20d%3D%22M287%2C197.6l-13.9%2C13.9L146.2%2C81.8L13.9%2C211.5L0%2C197.6l146.2%2C-146.2L287%2C197.6z%22%2F%3E%3C%2Fsvg%3E');
-    background-repeat: no-repeat;
-    background-position: right 10px top 50%;
-    background-size: 12px;
+    opacity: 0.7;
+    transition: opacity 0.2s ease;
+}
+
+.close:hover {
+    opacity: 1;
 }
 
 #modal-video {
     width: 100%;
-    height: 400px; /* Fixed height for video player */
-    background-color: black;
-    border-radius: 8px;
-}
-
-#video-loading-message {
-    font-size: 1.2em;
-    color: #ccc;
-    text-align: center;
-    margin-top: 20px;
-}
-
-/* --- Search Modal Styles --- */
-#search-modal .search-input-area {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 20px;
-}
-
-#search-modal #search-input {
-    flex-grow: 1;
-    padding: 10px;
-    border-radius: 5px;
-    border: 1px solid #555;
-    background-color: #333;
-    color: #f0f0f0;
-    font-size: 1em;
-}
-
-#search-modal button {
-    background-color: #e50914;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 1em;
-    transition: background-color 0.3s ease;
-}
-
-#search-modal button:hover {
-    background-color: #b2070c;
-}
-
-#search-results {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); /* Responsive grid for search results */
-    gap: 10px;
-}
-
-#search-results img {
-    width: 100%;
-    height: auto;
-    object-fit: cover;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
-    cursor: pointer;
-}
-
-/* --- Episode/Season Selectors --- */
-#episode-select-container {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin-top: 20px;
-}
-
-#episode-select-container select {
-    padding: 10px;
-    border-radius: 5px;
-    border: 1px solid #555;
-    background-color: #333;
-    color: #f0f0f0;
-    font-size: 1em;
-    cursor: pointer;
-    appearance: none;
-    background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23f0f0f0%22%20d%3D%22M287%2C197.6l-13.9%2C13.9L146.2%2C81.8L13.9%2C211.5L0%2C197.6l146.2%2C-146.2L287%2C197.6z%22%2F%3E%3C%2Fsvg%3E');
-    background-repeat: no-repeat;
-    background-position: right 10px top 50%;
-    background-size: 12px;
-}
-
-#episode-select-container button {
-    background-color: #e50914;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 1em;
-    transition: background-color 0.3s ease;
-}
-
-#episode-select-container button:hover {
-    background-color: #b2070c;
-}
-
-#episode-title-container {
     margin-top: 15px;
-    font-size: 1.2em;
-    font-weight: bold;
-    color: #f0f0f0;
+    border-radius: 4px;
 }
 
-#current-episode-title {
-    color: #e50914;
+/* --- Search Modal --- */
+.search-modal {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background-color: rgba(0, 0, 0, 0.95); /* Darker search modal */
+    display: none;
+    justify-content: center;
+    align-items: flex-start; /* Align items from the top */
+    z-index: 1001; /* Higher than modal */
+    padding-top: 60px; /* Push content down below navbar */
 }
 
+.search-modal input {
+    width: 80%;
+    max-width: 600px;
+    padding: 12px 15px;
+    border-radius: 4px;
+    border: none;
+    background-color: #222;
+    color: #e5e5e5;
+    font-size: 1em;
+    margin-bottom: 20px;
+    outline: none;
+}
 
-/* --- Responsive Adjustments --- */
+.search-modal .results {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); /* Grid layout for results */
+    gap: 15px;
+    padding: 20px;
+    width: 80%;
+    max-width: 960px;
+}
+
+.search-modal img {
+    width: 100%;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.search-modal img:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.2);
+}
+
+.search-modal .close {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    color: #e5e5e5;
+    font-size: 2em;
+    cursor: pointer;
+    opacity: 0.7;
+    transition: opacity 0.2s ease;
+}
+
+.search-modal .close:hover {
+    opacity: 1;
+}
+
+/* --- Media Query for Desktop (min-width: 768px) --- */
 @media (min-width: 768px) {
-    .modal-body-content {
-        flex-direction: row; /* Side-by-side on larger screens */
-    }
-
-    .modal-body-content #modal-image {
-        width: 30%;
-        max-width: 250px;
-        align-self: flex-start;
-    }
-
-    header h1 {
-        font-size: 2.5em;
-    }
-
-    #banner.swiper-container {
-        height: 500px;
-    }
-
-    #banner .swiper-slide h2 {
+    .banner h1 {
         font-size: 4em;
     }
 
-    .list-section h2 {
+    .row h2 {
+        font-size: 1.8em;
+    }
+
+    .list img {
+        width: 250px;
+    }
+
+    .modal-content {
+        max-width: 800px;
+        padding: 30px;
+    }
+
+    .modal img {
+        width: 30%;
+        margin-right: 30px;
+    }
+
+    .modal h2 {
         font-size: 2.2em;
     }
 
-    .image-list img {
-        width: 180px;
-        height: 270px;
+    .modal p {
+        font-size: 1.1em;
     }
-}
 
-@media (max-width: 480px) {
-    header h1 {
-        font-size: 1.8em;
+    .search-modal .results {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
     }
-    #search-button {
-        padding: 8px 15px;
-        font-size: 0.9em;
-    }
-    #banner.swiper-container {
-        height: 300px;
-    }
-    #banner .swiper-slide h2 {
-        font-size: 2.5em;
-    }
-    .list-section h2 {
-        font-size: 1.5em;
-    }
-    .image-list img {
-        width: 120px;
-        height: 180px;
-    }
-    .modal-content {
-        padding: 20px;
-        width: 100%; /* Full width on very small screens */
-        border-radius: 0; /* No rounded corners on full screen modal */
-    }
-    .close-button {
-        font-size: 30px;
-        top: 10px;
-        right: 15px;
-    }
-    #modal-title {
-        font-size: 2em;
-    }
-    #modal-video {
-        height: 250px; /* Adjust video height for small screens */
-    }
-    #search-modal #search-input {
-        font-size: 0.9em;
-    }
-    #search-modal button {
-        padding: 8px 15px;
-        font-size: 0.9em;
-    }
-    #search-results {
-        grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
-    }
-    #search-results img {
-        width: 100%;
-    }
+  .search-modal input {
+    width: 80%; /* Width as a percentage of the parent */
+    /* ... */
+}
+  .search-modal input {
+    width: 80%; /* Width as a percentage of the parent */
+    /* ... */
+}
+  
 }
