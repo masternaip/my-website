@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Movie & TV Show Hub</title>
     <link rel="stylesheet" href="style.css">
-
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <header>
@@ -23,6 +23,7 @@
         <div class="swiper-button-next"></div>
         <div class="swiper-button-prev"></div>
     </div>
+
     <main class="container">
         <section class="list-section">
             <h2>Trending Movies</h2>
@@ -64,7 +65,18 @@
                     </div>
                 </div>
             </div>
-            <iframe id="modal-video" src="" frameborder="0" allowfullscreen></iframe>
+            <iframe id="modal-video" src="" frameborder="0" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
+                allowfullscreen></iframe>
+            <div id="episode-select-container" style="display: none; flex-direction: column; gap: 0.5rem; margin-top: 1rem;">
+                <select id="season-select"></select>
+                <select id="episode-select"></select>
+                <button id="play-episode-button" onclick="playSelectedEpisode()">Play Episode</button>
+            </div>
+            <div id="episode-title-container" style="margin-top: 1rem; font-size: 1.2em; font-weight: bold;">
+                Episode Title: <span id="current-episode-title"></span>
+            </div>
+             <p id="video-loading-message" style="text-align: center; color: #666; display: none;"></p>
         </div>
     </div>
 
