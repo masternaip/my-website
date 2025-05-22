@@ -1,6 +1,7 @@
 const API_KEY = '7e863169c39e42ac68d117c538af97fc';
 const BASE_URL = 'https://api.themoviedb.org/3';
-const IMG_URL = 'https://image.tmdb.org/t/p/w500';
+const IMG_URL = 'https://image.tmdb.org/t/p/original'; // Use 'original' for banner images for better quality
+const POSTER_IMG_URL = 'https://image.tmdb.org/t/p/w500'; // Keep w500 for list posters
 let currentItem;
 
 async function fetchTrending(type) {
@@ -8,101 +9,149 @@ async function fetchTrending(type) {
     const data = await res.json();
     return data.results;
 }
-async function fetchNewMovies() {
-    try {
-        const res = await fetch(`${BASE_URL}/discover/movie?api_key=${API_KEY}&sort_by=primary_release_date.desc&page=1`);
+
+async function fetchTrendingAnime() {
+    let allResults = [];
+    for (let page = 1; page <= 3; page++) {
+        const res = await fetch(`${BASE_URL}/trending/tv/week?api_key=${API_KEY}&page=${page}`);
         const data = await res.json();
-        return data.results;
-    } catch (error) {
-        console.error('Error fetching new movies:', error);
-        return [];
+        const filtered = data.results.filter(item =>
+            item.original_language === 'ja' && item.genre_ids.includes(16)
+        );
+        allResults = allResults.concat(filtered);
     }
+    return allResults;
 }
 
-function displayNewMovies(movies) {
-    const container = document.getElementById('new-movies-list');
-    container.innerHTML = '';
-    movies.forEach(item => {
-        const img = document.createElement('img');
-        img.src = `${IMG_URL}${item.poster_path}`;
-        img.alt = item.title || item.name;
-        img.onclick = () => handleMovieClick(item);
-        container.appendChild(img);
+async function fetchTagalogMovies() {
+    let allTagalogMovies = [];
+    for (let page = 1; page <= 2; page++) {
+        const res = await fetch(`${BASE_URL}/discover/movie?api_key=${API_KEY}&language=en-US&sort_by=popularity.desc&with_original_language=tl&page=${page}`);
+        const data = await res.json();
+        const filtered = data.results.filter(item => item.poster_path && item.overview);
+        allTagalogMovies = allTagalogMovies.concat(filtered);
+    }
+    const uniqueTagalogMovies = Array.from(new Map(allTagalogMovies.map(item => [item.id, item])).values());
+    return uniqueTagalogMovies;
+}
+
+// Function to safely stringify and escape for onclick
+function escapeHtml(str) {
+    return str
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+}
+
+// NEW FUNCTION: Populate the Swiper banner
+async function populateBannerSwiper() {
+    const popularMovies = await fetchTrending('movie'); // Get trending movies for banner
+    const bannerContainer = document.querySelector('#banner .swiper-wrapper');
+    bannerContainer.innerHTML = ''; // Clear existing content
+
+    // Filter for items that actually have a backdrop image
+    const bannerItems = popularMovies.filter(item => item.backdrop_path).slice(0, 5); // Take top 5 with backdrop
+
+    if (bannerItems.length === 0) {
+        console.warn("No movies with backdrop paths found for the banner. Check API key or data.");
+        // Optionally display a fallback banner or message
+        bannerContainer.innerHTML = `
+            <div class="swiper-slide" style="background-color: #333; display: flex; align-items: center; justify-content: center;">
+                <div class="banner-content">
+                    <h2 class="banner-title">No Banner Content Available</h2>
+                    <p>Please check your internet connection or API key.</p>
+                </div>
+            </div>
+        `;
+        return; // Exit if no items to display
+    }
+
+    bannerItems.forEach(item => {
+        const slide = document.createElement('div');
+        slide.classList.add('swiper-slide');
+        slide.style.backgroundImage = `url(${IMG_URL}${item.backdrop_path})`;
+        slide.innerHTML = `
+            <div class="banner-content">
+                <h2 class="banner-title">${escapeHtml(item.title || item.name)}</h2>
+                <p class="banner-overview">${escapeHtml(item.overview ? item.overview.substring(0, 150) + '...' : 'No overview available.')}</p>
+                <button class="watch-now-button" onclick="showDetails(${escapeHtml(JSON.stringify(item))})">Watch Now</button>
+            </div>
+        `;
+        bannerContainer.appendChild(slide);
+    });
+
+    // Initialize Swiper after slides are added
+    new Swiper('#banner', {
+        loop: true,
+        autoplay: {
+            delay: 5000,
+            disableOnInteraction: false,
+        },
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+        },
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
     });
 }
 
-async function fetchTrendingAnime() {
-let allResults = [];
-for (let page = 1; page <= 3; page++) {
-    const res = await fetch(`${BASE_URL}/trending/tv/week?api_key=${API_KEY}&page=${page}`);
-    const data = await res.json();
-    const filtered = data.results.filter(item =>
-        item.original_language === 'ja' && item.genre_ids.includes(16)
-    );
-    allResults = allResults.concat(filtered);
-}
-return allResults;
-}
-
-function displayBanner(item) {
-    document.getElementById('banner').style.backgroundImage = `url(${IMG_URL}${item.backdrop_path})`;
-    document.getElementById('banner-title').textContent = item.title || item.name;
-}
 
 function displayList(items, containerId) {
     const container = document.getElementById(containerId);
     container.innerHTML = '';
     items.forEach(item => {
-        const img = document.createElement('img');
-        img.src = `${IMG_URL}${item.poster_path}`;
-        img.alt = item.title || item.name;
-        img.onclick = () => handleMovieClick(item);
-        container.appendChild(img);
+        if (item.poster_path) {
+            const img = document.createElement('img');
+            img.src = `${POSTER_IMG_URL}${item.poster_path}`;
+            img.alt = item.title || item.name || 'Poster';
+            img.onclick = () => showDetails(item);
+            container.appendChild(img);
+        }
     });
-}
-
-function handleMovieClick(item) {
-    window.open('https://www.w3schools.com/', '_blank');
-    showDetails(item);
 }
 
 function showDetails(item) {
     currentItem = item;
     document.getElementById('modal-title').textContent = item.title || item.name;
     document.getElementById('modal-description').textContent = item.overview;
-    document.getElementById('modal-image').src = `${IMG_URL}${item.poster_path}`;
+    document.getElementById('modal-image').src = `${POSTER_IMG_URL}${item.poster_path}`;
     document.getElementById('modal-rating').innerHTML = '★'.repeat(Math.round(item.vote_average / 2));
-    playVideo();
+
+    document.getElementById('server').value = 'vidsrc.cc';
+    changeServer();
+
     document.getElementById('modal').style.display = 'flex';
-
-    // Create the download button dynamically
-    const downloadButton = document.createElement('button');
-    downloadButton.textContent = 'Mediafire Download'; // Renamed the button text
-    downloadButton.id = 'download-mediafire-button'; // Keep the ID for potential specific styling
-    downloadButton.onclick = () => window.open('https://www.w3schools.com/', '_blank');
-
-    // Find the modal content element to append the button
-    const modalContent = document.querySelector('.modal-content');
-    // Append the button to the modal content
-    if (modalContent) {
-        modalContent.appendChild(downloadButton);
-    }
 }
 
-function playVideo() {
-    const type = currentItem.media_type === "movie" ? "movie" : "tv";
-    const embedURL = `https://player.videasy.net/${type}/${currentItem.id}`;
+function changeServer() {
+    if (!currentItem) {
+        console.error("No item selected for video playback.");
+        return;
+    }
+    const server = document.getElementById('server').value;
+    const type = currentItem.media_type === "tv" ? "tv" : "movie";
+
+    let embedURL = "";
+
+    if (server === "vidsrc.cc") {
+        embedURL = `https://vidsrc.cc/v2/embed/${type}/${currentItem.id}`;
+    } else if (server === "vidsrc.me") {
+        embedURL = `https://vidsrc.net/embed/${type}/?tmdb=${currentItem.id}`;
+    } else if (server === "player.videasy.net") {
+        embedURL = `https://player.videasy.net/${type}/${currentItem.id}`;
+    }
+
     document.getElementById('modal-video').src = embedURL;
 }
 
 function closeModal() {
     document.getElementById('modal').style.display = 'none';
     document.getElementById('modal-video').src = '';
-    // Remove the dynamically created download button when the modal closes
-    const downloadButton = document.getElementById('download-mediafire-button');
-    if (downloadButton) {
-        downloadButton.remove();
-    }
 }
 
 function openSearchModal() {
@@ -113,6 +162,7 @@ function openSearchModal() {
 function closeSearchModal() {
     document.getElementById('search-modal').style.display = 'none';
     document.getElementById('search-results').innerHTML = '';
+    document.getElementById('search-input').value = '';
 }
 
 async function searchTMDB() {
@@ -128,29 +178,31 @@ async function searchTMDB() {
     const container = document.getElementById('search-results');
     container.innerHTML = '';
     data.results.forEach(item => {
-        if (!item.poster_path) return;
-        const img = document.createElement('img');
-        img.src = `${IMG_URL}${item.poster_path}`;
-        img.alt = item.title || item.name;
-        img.onclick = () => {
-            window.open('https://www.w3schools.com/', '_blank');
-            closeSearchModal();
-            showDetails(item);
-        };
-        container.appendChild(img);
+        if (item.poster_path && (item.media_type === "movie" || item.media_type === "tv")) {
+            const img = document.createElement('img');
+            img.src = `${POSTER_IMG_URL}${item.poster_path}`;
+            img.alt = item.title || item.name || 'Poster';
+            img.onclick = () => {
+                closeSearchModal();
+                showDetails(item);
+            };
+            container.appendChild(img);
+        }
     });
 }
 
 async function init() {
+    await populateBannerSwiper(); // Ensure banner is populated first
+
     const movies = await fetchTrending('movie');
     const tvShows = await fetchTrending('tv');
     const anime = await fetchTrendingAnime();
-    const newMovies = await fetchNewMovies();
+    const tagalogMovies = await fetchTagalogMovies();
 
-    displayBanner(movies[Math.floor(Math.random() * movies.length)]);
     displayList(movies, 'movies-list');
     displayList(tvShows, 'tvshows-list');
     displayList(anime, 'anime-list');
+    displayList(tagalogMovies, 'tagalog-movies-list');
 }
 
-init();
+document.addEventListener('DOMContentLoaded', init);
