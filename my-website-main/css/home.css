@@ -1,26 +1,25 @@
-/* General Body and Container */
 body {
-    font-family: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif; /* Prioritize Helvetica Neue, fallback to common sans-serif */
+    font-family: 'Inter', sans-serif;
     margin: 0;
-    background-color: #141414; /* Netflix dark background */
-    color: #e5e5e5; /* Netflix light gray text */
-    line-height: 1.6;
-    -webkit-font-smoothing: antialiased; /* Smoother font rendering */
-    -moz-osx-font-smoothing: grayscale; /* Smoother font rendering */
+    background-color: #1a1a1a;
+    color: #f0f0f0;
+    overflow-x: hidden; /* Prevent horizontal scroll due to lists */
 }
 
 .container {
+    width: 90%;
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 15px;
 }
 
-/* Header */
 header {
-    background-color: #000; /* Pure black for header */
-    padding: 1rem 0;
-    text-align: center;
-    border-bottom: 1px solid #222; /* Subtle dark border */
+    background-color: #0d0d0d;
+    padding: 20px 0;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+    position: sticky;
+    top: 0;
+    z-index: 5;
 }
 
 header .container {
@@ -31,522 +30,429 @@ header .container {
 
 header h1 {
     margin: 0;
-    color: #e5e5e5; /* Light gray for title */
-    font-size: 2rem;
-    font-weight: 700; /* Bold */
-    letter-spacing: -0.5px; /* Slightly tighter spacing */
+    font-size: 2.2em;
+    color: #e50914; /* Netflix red */
 }
 
-header button {
-    padding: 0.7em 1.5em;
-    background-color: #e50914; /* Netflix Red */
+#search-button {
+    background-color: #e50914;
     color: white;
     border: none;
-    border-radius: 4px; /* Slightly rounded corners */
+    padding: 10px 20px;
+    border-radius: 5px;
     cursor: pointer;
-    font-size: 1rem;
-    font-weight: 600;
+    font-size: 1em;
     transition: background-color 0.3s ease;
 }
 
-header button:hover {
-    background-color: #f40612; /* Slightly brighter red on hover */
+#search-button:hover {
+    background-color: #b2070c;
 }
 
-/* Banner (Swiper) */
+/* --- Swiper Banner Styles --- */
 #banner.swiper-container {
     width: 100%;
-    height: 550px; /* Increased height for impact */
+    height: 400px; /* Fixed height for the banner */
+    background-color: #333;
+    margin-bottom: 30px;
     position: relative;
-    overflow: hidden;
-    background-color: #000; /* Fallback background for banner */
 }
 
-.swiper-slide {
+#banner .swiper-slide {
     background-size: cover;
     background-position: center;
-    color: white;
-    padding: 0;
-    text-align: center;
-    position: relative;
     display: flex;
-    align-items: flex-end; /* Align content to the bottom */
-    justify-content: center;
-    padding-bottom: 60px; /* More padding from bottom */
-}
-
-.swiper-slide::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    /* Stronger, darker gradient at the bottom for text readability */
-    background: linear-gradient(to top, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.7) 40%, rgba(0, 0, 0, 0) 100%);
-}
-
-.banner-content {
-    position: relative;
-    z-index: 1;
-    padding: 2em;
-    border-radius: 10px;
-    display: inline-block;
-    max-width: 90%; /* Allow more width on large screens */
-    box-sizing: border-box;
-    text-align: left; /* Align text left within its container */
-}
-
-.banner-title {
-    font-size: 3.5rem; /* Larger title for impact */
-    margin: 0 0 15px 0;
-    text-shadow: 2px 2px 8px rgba(0,0,0,0.9);
-    font-weight: 700;
-    line-height: 1.1;
-}
-
-.banner-overview {
-    font-size: 1.2rem; /* Larger overview text */
-    margin-top: 0;
-    margin-bottom: 25px;
-    text-shadow: 1px 1px 4px rgba(0,0,0,0.8);
-    max-width: 800px; /* Wider overview */
-    text-align: left; /* Ensure overview text is left-aligned */
-    line-height: 1.4;
-}
-
-/* Attractive Watch Now Button */
-.watch-now-button {
-    padding: 12px 30px;
-    background-color: #e50914; /* Netflix Red */
+    align-items: flex-end;
+    padding: 30px;
     color: white;
-    border: none;
-    border-radius: 4px; /* Square corners */
-    cursor: pointer;
-    font-size: 1.2rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    box-shadow: none; /* Remove glow for cleaner look */
-    transition: background-color 0.3s ease, transform 0.2s ease;
-    display: inline-block;
 }
 
-.watch-now-button:hover {
-    background-color: #f40612; /* Slightly brighter red on hover */
-    transform: none; /* No lift effect for cleaner feel */
+#banner .swiper-slide h2 {
+    font-size: 3em;
+    font-weight: bold;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.8);
+    margin: 0;
 }
 
-/* Swiper navigation (arrows) */
-.swiper-button-next, .swiper-button-prev {
-    color: #e5e5e5; /* Light gray arrows */
-    --swiper-navigation-size: 45px; /* Larger arrows */
-    filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.7));
-    transition: color 0.3s ease;
-}
-
-.swiper-button-next:hover, .swiper-button-prev:hover {
-    color: #f40612; /* Red arrows on hover */
-}
-
-/* Swiper pagination (dots) */
 .swiper-pagination-bullet {
-    background-color: rgba(255, 255, 255, 0.4); /* Fainter dots */
-    opacity: 1; /* Ensure visibility */
+    background: rgba(255, 255, 255, 0.5) !important;
 }
 
 .swiper-pagination-bullet-active {
-    background-color: #e50914; /* Netflix red for active dot */
+    background: white !important;
 }
 
-
-/* Main Content Sections */
-main {
-    padding: 2.5em 0; /* More vertical padding */
+.swiper-button-next, .swiper-button-prev {
+    color: white !important;
+    --swiper-navigation-size: 30px;
 }
 
+/* --- List Sections --- */
 .list-section {
-    margin-bottom: 3.5em; /* More space between sections */
+    margin-bottom: 40px;
 }
 
 .list-section h2 {
-    color: #e5e5e5;
-    font-size: 1.8rem; /* Slightly larger section titles */
-    margin-bottom: 1em;
-    border-bottom: none; /* Remove border for cleaner look */
-    padding-bottom: 0; /* Remove padding */
-    display: block; /* Take full width */
-    text-align: left; /* Align to left */
-    font-weight: 700;
-    letter-spacing: -0.5px;
+    font-size: 1.8em;
+    margin-bottom: 20px;
+    color: #f0f0f0;
+    border-left: 5px solid #e50914;
+    padding-left: 10px;
 }
 
 .image-list {
     display: flex;
-    overflow-x: auto;
-    gap: 0.8em; /* Tighter spacing between images */
-    padding-bottom: 10px;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: thin;
-    scrollbar-color: #444 #141414; /* Darker scrollbar */
-    padding-top: 5px; /* Little padding above images */
+    overflow-x: auto; /* Enable horizontal scrolling */
+    gap: 15px;
+    padding-bottom: 15px; /* Space for scrollbar */
+    -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+    scrollbar-width: thin; /* Firefox */
+    scrollbar-color: #e50914 #333; /* Firefox */
 }
 
-/* Custom scrollbar for Webkit browsers */
 .image-list::-webkit-scrollbar {
-    height: 6px; /* Thinner scrollbar */
+    height: 8px;
 }
 
 .image-list::-webkit-scrollbar-track {
-    background: #222; /* Darker track */
+    background: #333;
     border-radius: 10px;
 }
 
 .image-list::-webkit-scrollbar-thumb {
-    background-color: #444; /* Darker thumb */
+    background: #e50914;
     border-radius: 10px;
-    border: 1px solid #222;
 }
 
-
 .image-list img {
-    min-width: 180px; /* Maintain width */
-    width: 180px;
-    height: 270px; /* Maintain height */
+    width: 150px; /* Fixed width for posters */
+    height: 225px; /* Fixed height for posters (1.5 aspect ratio) */
     object-fit: cover;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
     cursor: pointer;
-    border-radius: 4px; /* Subtle rounding */
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.7); /* Stronger but softer shadow */
-    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    flex-shrink: 0; /* Prevent images from shrinking */
 }
 
 .image-list img:hover {
-    transform: scale(1.05); /* Slight scale for hover */
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.9); /* More prominent shadow on hover */
-    z-index: 2; /* Bring hovered item to front */
+    transform: scale(1.05);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.8);
 }
 
-/* Modal styles */
+/* --- Modal Styles --- */
 .modal {
-    display: none;
-    position: fixed;
-    z-index: 20;
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 100; /* Sit on top */
     left: 0;
     top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgba(0, 0, 0, 0.95); /* Even darker, slightly more opaque background */
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0, 0, 0, 0.8); /* Black w/ opacity */
     justify-content: center;
     align-items: center;
+    padding: 20px;
+    box-sizing: border-box;
 }
 
 .modal-content {
-    background-color: #1a1a1a; /* Darker modal background */
+    background-color: #2a2a2a;
     margin: auto;
     padding: 30px;
-    border-radius: 8px; /* Slightly less rounded */
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.8); /* Deeper shadow */
+    border-radius: 10px;
+    max-width: 900px;
+    width: 95%;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.7);
     position: relative;
-    max-width: 1000px; /* Still allowing generous width */
-    width: 90%;
-    max-height: 90vh;
-    overflow-y: auto;
-    display: flex; /* Use flexbox for modal content */
-    flex-direction: column; /* Stack elements vertically */
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.modal-content.search-content {
+    max-width: 800px; /* Adjust for search modal */
 }
 
 .close-button {
-    color: #e5e5e5; /* Light gray X */
-    font-size: 40px; /* Larger X */
-    font-weight: bold;
+    color: #aaa;
     position: absolute;
-    top: 10px;
-    right: 20px;
+    top: 15px;
+    right: 25px;
+    font-size: 35px;
+    font-weight: bold;
     cursor: pointer;
-    transition: color 0.2s ease;
+    transition: color 0.3s ease;
 }
 
 .close-button:hover,
 .close-button:focus {
-    color: #f40612; /* Red on hover */
+    color: white;
+    text-decoration: none;
 }
 
-.modal-content h2 {
-    color: #e5e5e5; /* White title in modal */
-    margin-top: 0;
-    font-size: 2.2rem;
-    margin-bottom: 0.8em;
+#modal-title {
+    color: #e50914;
+    font-size: 2.5em;
+    margin-bottom: 15px;
     text-align: center;
-    font-weight: 700;
 }
 
 .modal-body-content {
     display: flex;
-    flex-wrap: wrap;
-    gap: 25px; /* More space */
-    margin-bottom: 1em;
-    align-items: flex-start; /* Align image and text at top */
+    flex-direction: column;
+    gap: 20px;
 }
 
-.modal-body-content img {
-    max-width: 220px; /* Slightly larger image in modal */
+.modal-body-content #modal-image {
+    width: 100%;
+    max-width: 250px;
     height: auto;
-    border-radius: 4px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    border-radius: 8px;
+    align-self: center; /* Center image in column layout */
 }
 
 .modal-text-content {
-    flex: 1;
-    min-width: 300px; /* Ensure text content has a minimum width */
-    text-align: left; /* Align text left */
+    flex-grow: 1;
 }
 
 #modal-description {
-    font-size: 1.1rem;
-    color: #b3b3b3; /* Slightly darker gray for description */
-    margin-bottom: 1em;
-    line-height: 1.5;
+    font-size: 1.1em;
+    line-height: 1.6;
+    margin-bottom: 15px;
+    color: #ccc;
 }
 
 #modal-rating {
-    color: #e5e5e5; /* White for rating */
-    font-size: 2em; /* Larger rating */
-    margin-bottom: 1em;
+    font-size: 1.5em;
+    color: #FFD700; /* Gold color for stars */
 }
+
 #modal-rating span {
-    color: gold; /* Keep stars gold */
+    color: #666; /* Color for empty stars */
+}
+
+.watch-options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 15px;
 }
 
 .watch-options label {
-    margin-right: 15px; /* More space */
-    font-size: 1.1rem;
-    color: #e5e5e5;
+    font-size: 1em;
+    color: #f0f0f0;
 }
 
 .watch-options select {
-    padding: 10px; /* Larger select box */
-    border-radius: 4px;
-    border: 1px solid #333; /* Darker border */
-    background-color: #222; /* Darker background */
-    color: #e5e5e5;
-    font-size: 1rem;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #555;
+    background-color: #333;
+    color: #f0f0f0;
+    font-size: 1em;
     cursor: pointer;
+    appearance: none; /* Remove default arrow */
+    background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23f0f0f0%22%20d%3D%22M287%2C197.6l-13.9%2C13.9L146.2%2C81.8L13.9%2C211.5L0%2C197.6l146.2%2C-146.2L287%2C197.6z%22%2F%3E%3C%2Fsvg%3E');
+    background-repeat: no-repeat;
+    background-position: right 10px top 50%;
+    background-size: 12px;
 }
 
-/* --- CRITICAL FIX FOR MODAL VIDEO SIZE --- */
 #modal-video {
-    width: 100%; /* Take full width of parent */
-    /* Remove fixed height */
-    /* height: 500px; */
-    border-radius: 4px;
-    margin-top: 25px;
-    background-color: black;
-    border: 1px solid #333;
-
-    /* Aspect ratio hack for responsive video */
-    position: relative; /* Needed for absolute child iframe */
-    padding-bottom: 56.25%; /* 16:9 aspect ratio (height / width = 9 / 16 = 0.5625) */
-    height: 0; /* Collapse height of container itself */
-    overflow: hidden; /* Hide anything outside */
-}
-
-#modal-video iframe {
-    position: absolute; /* Position iframe absolutely within its parent */
-    top: 0;
-    left: 0;
     width: 100%;
-    height: 100%;
-    border: none; /* Remove iframe's default border */
+    height: 400px; /* Fixed height for video player */
+    background-color: black;
+    border-radius: 8px;
 }
-/* --- END CRITICAL FIX --- */
 
-
-/* Search Modal Specific Styles */
-.search-content {
+#video-loading-message {
+    font-size: 1.2em;
+    color: #ccc;
     text-align: center;
+    margin-top: 20px;
 }
 
-.search-input-area {
+/* --- Search Modal Styles --- */
+#search-modal .search-input-area {
     display: flex;
     gap: 10px;
-    margin-bottom: 25px;
-    justify-content: center;
+    margin-bottom: 20px;
 }
 
-#search-input {
+#search-modal #search-input {
     flex-grow: 1;
-    max-width: 500px;
-    padding: 0.8em;
-    border: 1px solid #333; /* Darker border */
-    border-radius: 4px;
-    background-color: #222; /* Darker background */
-    color: #e5e5e5;
-    font-size: 1rem;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #555;
+    background-color: #333;
+    color: #f0f0f0;
+    font-size: 1em;
 }
 
-#search-input::placeholder {
-    color: #777; /* Darker placeholder */
-}
-
-.search-content button {
-    padding: 0.8em 1.5em;
-    background-color: #e50914; /* Netflix Red */
+#search-modal button {
+    background-color: #e50914;
     color: white;
     border: none;
-    border-radius: 4px;
+    padding: 10px 20px;
+    border-radius: 5px;
     cursor: pointer;
-    font-size: 1rem;
+    font-size: 1em;
     transition: background-color 0.3s ease;
 }
 
-.search-content button:hover {
-    background-color: #f40612;
+#search-modal button:hover {
+    background-color: #b2070c;
 }
 
-.search-content .image-list {
-    justify-content: center;
-    flex-wrap: wrap;
-    max-height: 60vh;
-    overflow-y: auto;
-    padding-right: 10px;
+#search-results {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); /* Responsive grid for search results */
+    gap: 10px;
 }
 
-/* Responsive Adjustments */
-@media (max-width: 768px) {
+#search-results img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+}
+
+/* --- Episode/Season Selectors --- */
+#episode-select-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+#episode-select-container select {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #555;
+    background-color: #333;
+    color: #f0f0f0;
+    font-size: 1em;
+    cursor: pointer;
+    appearance: none;
+    background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23f0f0f0%22%20d%3D%22M287%2C197.6l-13.9%2C13.9L146.2%2C81.8L13.9%2C211.5L0%2C197.6l146.2%2C-146.2L287%2C197.6z%22%2F%3E%3C%2Fsvg%3E');
+    background-repeat: no-repeat;
+    background-position: right 10px top 50%;
+    background-size: 12px;
+}
+
+#episode-select-container button {
+    background-color: #e50914;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s ease;
+}
+
+#episode-select-container button:hover {
+    background-color: #b2070c;
+}
+
+#episode-title-container {
+    margin-top: 15px;
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #f0f0f0;
+}
+
+#current-episode-title {
+    color: #e50914;
+}
+
+
+/* --- Responsive Adjustments --- */
+@media (min-width: 768px) {
+    .modal-body-content {
+        flex-direction: row; /* Side-by-side on larger screens */
+    }
+
+    .modal-body-content #modal-image {
+        width: 30%;
+        max-width: 250px;
+        align-self: flex-start;
+    }
+
     header h1 {
-        font-size: 1.6rem;
+        font-size: 2.5em;
     }
 
     #banner.swiper-container {
-        height: 450px; /* Adjusted banner height */
+        height: 500px;
     }
 
-    .swiper-slide {
-        padding-bottom: 40px; /* Reduce padding for smaller screens */
-    }
-
-    .banner-content {
-        max-width: 95%; /* Allow more width */
-        padding: 1.5em;
-    }
-
-    .banner-title {
-        font-size: 2.5rem; /* Smaller title */
-    }
-    .banner-overview {
-        font-size: 1rem; /* Smaller overview */
-        max-width: 95%;
-    }
-    .watch-now-button {
-        padding: 10px 25px;
-        font-size: 1.1rem;
+    #banner .swiper-slide h2 {
+        font-size: 4em;
     }
 
     .list-section h2 {
-        font-size: 1.5rem;
+        font-size: 2.2em;
     }
 
     .image-list img {
-        min-width: 120px;
-        width: 120px;
-        height: 180px;
-    }
-
-    .modal-content {
-        padding: 25px;
-        width: 95%;
-    }
-
-    .modal-body-content {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-    }
-
-    .modal-body-content img {
-        max-width: 180px;
-        margin: 0 auto 20px auto;
-    }
-
-    .modal-text-content {
-        min-width: unset; /* Remove min-width for mobile stacking */
-    }
-
-    /* Video player on mobile, maintain aspect ratio */
-    #modal-video {
-        padding-bottom: 56.25%; /* Still 16:9 */
-    }
-
-    .search-input-area {
-        flex-direction: column;
-        gap: 10px;
-    }
-
-    #search-input, .search-content button {
-        width: 100%;
-        max-width: none;
+        width: 180px;
+        height: 270px;
     }
 }
 
 @media (max-width: 480px) {
     header h1 {
-        font-size: 1.3rem;
+        font-size: 1.8em;
     }
-
-    header button {
-        padding: 0.5em 1em;
-        font-size: 0.9rem;
+    #search-button {
+        padding: 8px 15px;
+        font-size: 0.9em;
     }
-
     #banner.swiper-container {
-        height: 350px; /* Further adjusted banner height */
+        height: 300px;
     }
-
-    .swiper-slide {
-        padding-bottom: 20px;
+    #banner .swiper-slide h2 {
+        font-size: 2.5em;
     }
-
-    .banner-title {
-        font-size: 1.8rem;
-    }
-    .banner-overview {
-        font-size: 0.9rem;
-        margin-bottom: 15px;
-    }
-    .watch-now-button {
-        padding: 8px 20px;
-        font-size: 1rem;
-    }
-
     .list-section h2 {
-        font-size: 1.3rem;
+        font-size: 1.5em;
     }
-
     .image-list img {
-        min-width: 100px;
-        width: 100px;
-        height: 150px;
+        width: 120px;
+        height: 180px;
     }
-
     .modal-content {
         padding: 20px;
+        width: 100%; /* Full width on very small screens */
+        border-radius: 0; /* No rounded corners on full screen modal */
     }
-
-    .modal-content h2 {
-        font-size: 1.8rem;
+    .close-button {
+        font-size: 30px;
+        top: 10px;
+        right: 15px;
     }
-
-    #modal-description {
-        font-size: 1rem;
+    #modal-title {
+        font-size: 2em;
     }
-
-    #modal-rating {
-        font-size: 1.6em;
-    }
-
-    /* Video player on very small screens, maintain aspect ratio */
     #modal-video {
-        padding-bottom: 56.25%; /* Still 16:9 */
+        height: 250px; /* Adjust video height for small screens */
+    }
+    #search-modal #search-input {
+        font-size: 0.9em;
+    }
+    #search-modal button {
+        padding: 8px 15px;
+        font-size: 0.9em;
+    }
+    #search-results {
+        grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+    }
+    #search-results img {
+        width: 100%;
     }
 }
