@@ -1,0 +1,311 @@
+/* --- Base Styles --- */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: 'Netflix Sans', sans-serif; /* Assuming you'll add this font */
+    background-color: #141414; /* Netflix dark background */
+    color: #e5e5e5; /* Light gray text */
+}
+
+/* --- Font (You'll need to include this in your <head> or via CSS) --- */
+/* Example using Google Fonts: <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap" rel="stylesheet"> */
+/* For a closer Netflix feel, you might need to find a similar licensed font or use a web-safe alternative like 'Segoe UI', Tahoma, sans-serif; */
+
+/* --- Navbar --- */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px; /* More horizontal padding */
+    background-color: #141414; /* Keep dark background */
+    /* Add a subtle dark gradient at the bottom for visual separation */
+    background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.7) 0%, transparent 100%);
+    position: fixed; /* Stick to the top */
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 100; /* Ensure it's above other elements */
+}
+
+.navbar img {
+    height: 35px; /* Adjust logo size */
+    margin-right: 20px;
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.nav-links a {
+    color: #e5e5e5;
+    text-decoration: none;
+    font-size: 0.9em;
+}
+
+.search-bar {
+    padding: 8px 12px;
+    border-radius: 4px;
+    border: none;
+    background-color: #222; /* Darker background for search */
+    color: #e5e5e5;
+    font-size: 0.9em;
+    width: 150px; /* Initial width */
+    transition: width 0.3s ease; /* Smooth width transition */
+}
+
+.search-bar:focus {
+    outline: none;
+    width: 250px; /* Expand on focus */
+}
+
+/* --- Banner --- */
+.banner {
+    height: 70vh; /* Larger banner area */
+    background-size: cover;
+    background-position: center; /* Center the background image */
+    display: flex;
+    flex-direction: column; /* Stack title and buttons */
+    justify-content: center; /* Center content vertically */
+    padding: 20px 50px; /* More horizontal padding */
+    /* Add a dark gradient at the bottom for text readability */
+    background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, #141414 80%);
+    color: white; /* White text on banner */
+}
+
+.banner h1 {
+    font-size: 3em;
+    font-weight: bold;
+    margin-bottom: 15px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8); /* Add text shadow */
+}
+
+/* You might want to add buttons like "Play" and "My List" here */
+
+/* --- Rows and Lists --- */
+.row {
+    margin: 20px 0; /* More vertical margin */
+    padding: 0 20px; /* Horizontal padding for content */
+}
+
+/* Style for the Mediafire Download button */
+#download-mediafire-button {
+    background-color: #0080ff; /* Mediafire blue */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    margin-top: 10px; /* Add some space below the video */
+    transition: background-color 0.3s ease;
+}
+
+#download-mediafire-button:hover {
+    background-color: #0066cc;
+}
+
+.row h2 {
+    margin-bottom: 15px;
+    font-size: 1.5em;
+    font-weight: bold;
+    color: white;
+}
+
+.list {
+    display: flex;
+    overflow-x: auto;
+    padding-bottom: 15px;
+}
+
+.list img {
+    width: 200px; /* Larger poster size */
+    margin-right: 10px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: transform 0.2s ease;
+}
+
+.list img:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.3); /* Subtle glow on hover */
+    z-index: 2;
+}
+
+/* --- Modal --- */
+.modal {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background-color: rgba(0, 0, 0, 0.9); /* Darker modal background */
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Ensure it's on top */
+    padding: 20px;
+}
+
+.modal-content {
+    background-color: #141414; /* Dark modal content */
+    padding: 20px;
+    width: 90%;
+    max-width: 700px; /* Slightly wider modal */
+    text-align: left; /* Align text to the left in modal */
+    position: relative;
+    border-radius: 4px;
+}
+
+.modal img {
+    width: 40%; /* Adjust image width in modal */
+    border-radius: 4px;
+    float: left; /* Image on the left */
+    margin-right: 20px;
+    margin-bottom: 10px;
+}
+
+.modal h2 {
+    color: white;
+    font-size: 1.8em;
+    margin-bottom: 10px;
+}
+
+.stars {
+    color: #ffc107; /* Gold/yellow for stars */
+    font-size: 1.2em;
+    margin-bottom: 10px;
+}
+
+.modal p {
+    color: #e5e5e5;
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+.close {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    color: #e5e5e5;
+    font-size: 2em;
+    cursor: pointer;
+    opacity: 0.7;
+    transition: opacity 0.2s ease;
+}
+
+.close:hover {
+    opacity: 1;
+}
+
+#modal-video {
+    width: 100%;
+    margin-top: 15px;
+    border-radius: 4px;
+}
+
+/* --- Search Modal --- */
+.search-modal {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background-color: rgba(0, 0, 0, 0.95); /* Darker search modal */
+    display: none;
+    justify-content: center;
+    align-items: flex-start; /* Align items from the top */
+    z-index: 1001; /* Higher than modal */
+    padding-top: 60px; /* Push content down below navbar */
+}
+
+.search-modal input {
+    width: 80%;
+    max-width: 600px;
+    padding: 12px 15px;
+    border-radius: 4px;
+    border: none;
+    background-color: #222;
+    color: #e5e5e5;
+    font-size: 1em;
+    margin-bottom: 20px;
+    outline: none;
+}
+
+.search-modal .results {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); /* Grid layout for results */
+    gap: 15px;
+    padding: 20px;
+    width: 80%;
+    max-width: 960px;
+}
+
+.search-modal img {
+    width: 100%;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.search-modal img:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.2);
+}
+
+.search-modal .close {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    color: #e5e5e5;
+    font-size: 2em;
+    cursor: pointer;
+    opacity: 0.7;
+    transition: opacity 0.2s ease;
+}
+
+.search-modal .close:hover {
+    opacity: 1;
+}
+
+/* --- Media Query for Desktop (min-width: 768px) --- */
+@media (min-width: 768px) {
+    .banner h1 {
+        font-size: 4em;
+    }
+
+    .row h2 {
+        font-size: 1.8em;
+    }
+
+    .list img {
+        width: 250px;
+    }
+
+    .modal-content {
+        max-width: 800px;
+        padding: 30px;
+    }
+
+    .modal img {
+        width: 30%;
+        margin-right: 30px;
+    }
+
+    .modal h2 {
+        font-size: 2.2em;
+    }
+
+    .modal p {
+        font-size: 1.1em;
+    }
+
+    .search-modal .results {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    }
+  .search-modal input {
+    width: 80%; /* Width as a percentage of the parent */
+    /* ... */
+}
+  .search-modal input {
+    width: 80%; /* Width as a percentage of the parent */
+    /* ... */
+}
+  
+}
