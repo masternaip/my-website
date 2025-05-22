@@ -1,311 +1,552 @@
-/* --- Base Styles --- */
-* { margin: 0; padding: 0; box-sizing: border-box; }
+/* General Body and Container */
 body {
-    font-family: 'Netflix Sans', sans-serif; /* Assuming you'll add this font */
+    font-family: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif; /* Prioritize Helvetica Neue, fallback to common sans-serif */
+    margin: 0;
     background-color: #141414; /* Netflix dark background */
-    color: #e5e5e5; /* Light gray text */
+    color: #e5e5e5; /* Netflix light gray text */
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased; /* Smoother font rendering */
+    -moz-osx-font-smoothing: grayscale; /* Smoother font rendering */
 }
 
-/* --- Font (You'll need to include this in your <head> or via CSS) --- */
-/* Example using Google Fonts: <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap" rel="stylesheet"> */
-/* For a closer Netflix feel, you might need to find a similar licensed font or use a web-safe alternative like 'Segoe UI', Tahoma, sans-serif; */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
 
-/* --- Navbar --- */
-.navbar {
+/* Header */
+header {
+    background-color: #000; /* Pure black for header */
+    padding: 1rem 0;
+    text-align: center;
+    border-bottom: 1px solid #222; /* Subtle dark border */
+}
+
+header .container {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 15px 20px; /* More horizontal padding */
-    background-color: #141414; /* Keep dark background */
-    /* Add a subtle dark gradient at the bottom for visual separation */
-    background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.7) 0%, transparent 100%);
-    position: fixed; /* Stick to the top */
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 100; /* Ensure it's above other elements */
 }
 
-.navbar img {
-    height: 35px; /* Adjust logo size */
-    margin-right: 20px;
+header h1 {
+    margin: 0;
+    color: #e5e5e5; /* Light gray for title */
+    font-size: 2rem;
+    font-weight: 700; /* Bold */
+    letter-spacing: -0.5px; /* Slightly tighter spacing */
 }
 
-.nav-links {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-}
-
-.nav-links a {
-    color: #e5e5e5;
-    text-decoration: none;
-    font-size: 0.9em;
-}
-
-.search-bar {
-    padding: 8px 12px;
-    border-radius: 4px;
-    border: none;
-    background-color: #222; /* Darker background for search */
-    color: #e5e5e5;
-    font-size: 0.9em;
-    width: 150px; /* Initial width */
-    transition: width 0.3s ease; /* Smooth width transition */
-}
-
-.search-bar:focus {
-    outline: none;
-    width: 250px; /* Expand on focus */
-}
-
-/* --- Banner --- */
-.banner {
-    height: 70vh; /* Larger banner area */
-    background-size: cover;
-    background-position: center; /* Center the background image */
-    display: flex;
-    flex-direction: column; /* Stack title and buttons */
-    justify-content: center; /* Center content vertically */
-    padding: 20px 50px; /* More horizontal padding */
-    /* Add a dark gradient at the bottom for text readability */
-    background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, #141414 80%);
-    color: white; /* White text on banner */
-}
-
-.banner h1 {
-    font-size: 3em;
-    font-weight: bold;
-    margin-bottom: 15px;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8); /* Add text shadow */
-}
-
-/* You might want to add buttons like "Play" and "My List" here */
-
-/* --- Rows and Lists --- */
-.row {
-    margin: 20px 0; /* More vertical margin */
-    padding: 0 20px; /* Horizontal padding for content */
-}
-
-/* Style for the Mediafire Download button */
-#download-mediafire-button {
-    background-color: #0080ff; /* Mediafire blue */
+header button {
+    padding: 0.7em 1.5em;
+    background-color: #e50914; /* Netflix Red */
     color: white;
-    padding: 10px 20px;
     border: none;
-    border-radius: 5px;
+    border-radius: 4px; /* Slightly rounded corners */
     cursor: pointer;
-    font-size: 1em;
-    margin-top: 10px; /* Add some space below the video */
+    font-size: 1rem;
+    font-weight: 600;
     transition: background-color 0.3s ease;
 }
 
-#download-mediafire-button:hover {
-    background-color: #0066cc;
+header button:hover {
+    background-color: #f40612; /* Slightly brighter red on hover */
 }
 
-.row h2 {
-    margin-bottom: 15px;
-    font-size: 1.5em;
-    font-weight: bold;
+/* Banner (Swiper) */
+#banner.swiper-container {
+    width: 100%;
+    height: 550px; /* Increased height for impact */
+    position: relative;
+    overflow: hidden;
+    background-color: #000; /* Fallback background for banner */
+}
+
+.swiper-slide {
+    background-size: cover;
+    background-position: center;
     color: white;
+    padding: 0;
+    text-align: center;
+    position: relative;
+    display: flex;
+    align-items: flex-end; /* Align content to the bottom */
+    justify-content: center;
+    padding-bottom: 60px; /* More padding from bottom */
 }
 
-.list {
+.swiper-slide::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    /* Stronger, darker gradient at the bottom for text readability */
+    background: linear-gradient(to top, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.7) 40%, rgba(0, 0, 0, 0) 100%);
+}
+
+.banner-content {
+    position: relative;
+    z-index: 1;
+    padding: 2em;
+    border-radius: 10px;
+    display: inline-block;
+    max-width: 90%; /* Allow more width on large screens */
+    box-sizing: border-box;
+    text-align: left; /* Align text left within its container */
+}
+
+.banner-title {
+    font-size: 3.5rem; /* Larger title for impact */
+    margin: 0 0 15px 0;
+    text-shadow: 2px 2px 8px rgba(0,0,0,0.9);
+    font-weight: 700;
+    line-height: 1.1;
+}
+
+.banner-overview {
+    font-size: 1.2rem; /* Larger overview text */
+    margin-top: 0;
+    margin-bottom: 25px;
+    text-shadow: 1px 1px 4px rgba(0,0,0,0.8);
+    max-width: 800px; /* Wider overview */
+    text-align: left; /* Ensure overview text is left-aligned */
+    line-height: 1.4;
+}
+
+/* Attractive Watch Now Button */
+.watch-now-button {
+    padding: 12px 30px;
+    background-color: #e50914; /* Netflix Red */
+    color: white;
+    border: none;
+    border-radius: 4px; /* Square corners */
+    cursor: pointer;
+    font-size: 1.2rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow: none; /* Remove glow for cleaner look */
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    display: inline-block;
+}
+
+.watch-now-button:hover {
+    background-color: #f40612; /* Slightly brighter red on hover */
+    transform: none; /* No lift effect for cleaner feel */
+}
+
+/* Swiper navigation (arrows) */
+.swiper-button-next, .swiper-button-prev {
+    color: #e5e5e5; /* Light gray arrows */
+    --swiper-navigation-size: 45px; /* Larger arrows */
+    filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.7));
+    transition: color 0.3s ease;
+}
+
+.swiper-button-next:hover, .swiper-button-prev:hover {
+    color: #f40612; /* Red arrows on hover */
+}
+
+/* Swiper pagination (dots) */
+.swiper-pagination-bullet {
+    background-color: rgba(255, 255, 255, 0.4); /* Fainter dots */
+    opacity: 1; /* Ensure visibility */
+}
+
+.swiper-pagination-bullet-active {
+    background-color: #e50914; /* Netflix red for active dot */
+}
+
+
+/* Main Content Sections */
+main {
+    padding: 2.5em 0; /* More vertical padding */
+}
+
+.list-section {
+    margin-bottom: 3.5em; /* More space between sections */
+}
+
+.list-section h2 {
+    color: #e5e5e5;
+    font-size: 1.8rem; /* Slightly larger section titles */
+    margin-bottom: 1em;
+    border-bottom: none; /* Remove border for cleaner look */
+    padding-bottom: 0; /* Remove padding */
+    display: block; /* Take full width */
+    text-align: left; /* Align to left */
+    font-weight: 700;
+    letter-spacing: -0.5px;
+}
+
+.image-list {
     display: flex;
     overflow-x: auto;
-    padding-bottom: 15px;
+    gap: 0.8em; /* Tighter spacing between images */
+    padding-bottom: 10px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    scrollbar-color: #444 #141414; /* Darker scrollbar */
+    padding-top: 5px; /* Little padding above images */
 }
 
-.list img {
-    width: 200px; /* Larger poster size */
-    margin-right: 10px;
+/* Custom scrollbar for Webkit browsers */
+.image-list::-webkit-scrollbar {
+    height: 6px; /* Thinner scrollbar */
+}
+
+.image-list::-webkit-scrollbar-track {
+    background: #222; /* Darker track */
+    border-radius: 10px;
+}
+
+.image-list::-webkit-scrollbar-thumb {
+    background-color: #444; /* Darker thumb */
+    border-radius: 10px;
+    border: 1px solid #222;
+}
+
+
+.image-list img {
+    min-width: 180px; /* Maintain width */
+    width: 180px;
+    height: 270px; /* Maintain height */
+    object-fit: cover;
     cursor: pointer;
-    border-radius: 4px;
-    transition: transform 0.2s ease;
+    border-radius: 4px; /* Subtle rounding */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.7); /* Stronger but softer shadow */
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
 }
 
-.list img:hover {
-    transform: scale(1.1);
-    box-shadow: 0 0 10px rgba(255, 255, 255, 0.3); /* Subtle glow on hover */
-    z-index: 2;
+.image-list img:hover {
+    transform: scale(1.05); /* Slight scale for hover */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.9); /* More prominent shadow on hover */
+    z-index: 2; /* Bring hovered item to front */
 }
 
-/* --- Modal --- */
+/* Modal styles */
 .modal {
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    background-color: rgba(0, 0, 0, 0.9); /* Darker modal background */
     display: none;
+    position: fixed;
+    z-index: 20;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.95); /* Even darker, slightly more opaque background */
     justify-content: center;
     align-items: center;
-    z-index: 1000; /* Ensure it's on top */
-    padding: 20px;
 }
 
 .modal-content {
-    background-color: #141414; /* Dark modal content */
-    padding: 20px;
-    width: 90%;
-    max-width: 700px; /* Slightly wider modal */
-    text-align: left; /* Align text to the left in modal */
+    background-color: #1a1a1a; /* Darker modal background */
+    margin: auto;
+    padding: 30px;
+    border-radius: 8px; /* Slightly less rounded */
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.8); /* Deeper shadow */
     position: relative;
-    border-radius: 4px;
+    max-width: 1000px; /* Still allowing generous width */
+    width: 90%;
+    max-height: 90vh;
+    overflow-y: auto;
+    display: flex; /* Use flexbox for modal content */
+    flex-direction: column; /* Stack elements vertically */
 }
 
-.modal img {
-    width: 40%; /* Adjust image width in modal */
-    border-radius: 4px;
-    float: left; /* Image on the left */
-    margin-right: 20px;
-    margin-bottom: 10px;
-}
-
-.modal h2 {
-    color: white;
-    font-size: 1.8em;
-    margin-bottom: 10px;
-}
-
-.stars {
-    color: #ffc107; /* Gold/yellow for stars */
-    font-size: 1.2em;
-    margin-bottom: 10px;
-}
-
-.modal p {
-    color: #e5e5e5;
-    line-height: 1.6;
-    margin-bottom: 15px;
-}
-
-.close {
+.close-button {
+    color: #e5e5e5; /* Light gray X */
+    font-size: 40px; /* Larger X */
+    font-weight: bold;
     position: absolute;
     top: 10px;
     right: 20px;
-    color: #e5e5e5;
-    font-size: 2em;
     cursor: pointer;
-    opacity: 0.7;
-    transition: opacity 0.2s ease;
+    transition: color 0.2s ease;
 }
 
-.close:hover {
-    opacity: 1;
+.close-button:hover,
+.close-button:focus {
+    color: #f40612; /* Red on hover */
 }
 
+.modal-content h2 {
+    color: #e5e5e5; /* White title in modal */
+    margin-top: 0;
+    font-size: 2.2rem;
+    margin-bottom: 0.8em;
+    text-align: center;
+    font-weight: 700;
+}
+
+.modal-body-content {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 25px; /* More space */
+    margin-bottom: 1em;
+    align-items: flex-start; /* Align image and text at top */
+}
+
+.modal-body-content img {
+    max-width: 220px; /* Slightly larger image in modal */
+    height: auto;
+    border-radius: 4px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+.modal-text-content {
+    flex: 1;
+    min-width: 300px; /* Ensure text content has a minimum width */
+    text-align: left; /* Align text left */
+}
+
+#modal-description {
+    font-size: 1.1rem;
+    color: #b3b3b3; /* Slightly darker gray for description */
+    margin-bottom: 1em;
+    line-height: 1.5;
+}
+
+#modal-rating {
+    color: #e5e5e5; /* White for rating */
+    font-size: 2em; /* Larger rating */
+    margin-bottom: 1em;
+}
+#modal-rating span {
+    color: gold; /* Keep stars gold */
+}
+
+.watch-options label {
+    margin-right: 15px; /* More space */
+    font-size: 1.1rem;
+    color: #e5e5e5;
+}
+
+.watch-options select {
+    padding: 10px; /* Larger select box */
+    border-radius: 4px;
+    border: 1px solid #333; /* Darker border */
+    background-color: #222; /* Darker background */
+    color: #e5e5e5;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+/* --- CRITICAL FIX FOR MODAL VIDEO SIZE --- */
 #modal-video {
-    width: 100%;
-    margin-top: 15px;
+    width: 100%; /* Take full width of parent */
+    /* Remove fixed height */
+    /* height: 500px; */
     border-radius: 4px;
+    margin-top: 25px;
+    background-color: black;
+    border: 1px solid #333;
+
+    /* Aspect ratio hack for responsive video */
+    position: relative; /* Needed for absolute child iframe */
+    padding-bottom: 56.25%; /* 16:9 aspect ratio (height / width = 9 / 16 = 0.5625) */
+    height: 0; /* Collapse height of container itself */
+    overflow: hidden; /* Hide anything outside */
 }
 
-/* --- Search Modal --- */
-.search-modal {
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    background-color: rgba(0, 0, 0, 0.95); /* Darker search modal */
-    display: none;
+#modal-video iframe {
+    position: absolute; /* Position iframe absolutely within its parent */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none; /* Remove iframe's default border */
+}
+/* --- END CRITICAL FIX --- */
+
+
+/* Search Modal Specific Styles */
+.search-content {
+    text-align: center;
+}
+
+.search-input-area {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 25px;
     justify-content: center;
-    align-items: flex-start; /* Align items from the top */
-    z-index: 1001; /* Higher than modal */
-    padding-top: 60px; /* Push content down below navbar */
 }
 
-.search-modal input {
-    width: 80%;
-    max-width: 600px;
-    padding: 12px 15px;
+#search-input {
+    flex-grow: 1;
+    max-width: 500px;
+    padding: 0.8em;
+    border: 1px solid #333; /* Darker border */
     border-radius: 4px;
+    background-color: #222; /* Darker background */
+    color: #e5e5e5;
+    font-size: 1rem;
+}
+
+#search-input::placeholder {
+    color: #777; /* Darker placeholder */
+}
+
+.search-content button {
+    padding: 0.8em 1.5em;
+    background-color: #e50914; /* Netflix Red */
+    color: white;
     border: none;
-    background-color: #222;
-    color: #e5e5e5;
-    font-size: 1em;
-    margin-bottom: 20px;
-    outline: none;
-}
-
-.search-modal .results {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); /* Grid layout for results */
-    gap: 15px;
-    padding: 20px;
-    width: 80%;
-    max-width: 960px;
-}
-
-.search-modal img {
-    width: 100%;
     border-radius: 4px;
     cursor: pointer;
-    transition: transform 0.2s ease;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
 }
 
-.search-modal img:hover {
-    transform: scale(1.05);
-    box-shadow: 0 0 8px rgba(255, 255, 255, 0.2);
+.search-content button:hover {
+    background-color: #f40612;
 }
 
-.search-modal .close {
-    position: absolute;
-    top: 15px;
-    right: 20px;
-    color: #e5e5e5;
-    font-size: 2em;
-    cursor: pointer;
-    opacity: 0.7;
-    transition: opacity 0.2s ease;
+.search-content .image-list {
+    justify-content: center;
+    flex-wrap: wrap;
+    max-height: 60vh;
+    overflow-y: auto;
+    padding-right: 10px;
 }
 
-.search-modal .close:hover {
-    opacity: 1;
-}
-
-/* --- Media Query for Desktop (min-width: 768px) --- */
-@media (min-width: 768px) {
-    .banner h1 {
-        font-size: 4em;
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    header h1 {
+        font-size: 1.6rem;
     }
 
-    .row h2 {
-        font-size: 1.8em;
+    #banner.swiper-container {
+        height: 450px; /* Adjusted banner height */
     }
 
-    .list img {
-        width: 250px;
+    .swiper-slide {
+        padding-bottom: 40px; /* Reduce padding for smaller screens */
+    }
+
+    .banner-content {
+        max-width: 95%; /* Allow more width */
+        padding: 1.5em;
+    }
+
+    .banner-title {
+        font-size: 2.5rem; /* Smaller title */
+    }
+    .banner-overview {
+        font-size: 1rem; /* Smaller overview */
+        max-width: 95%;
+    }
+    .watch-now-button {
+        padding: 10px 25px;
+        font-size: 1.1rem;
+    }
+
+    .list-section h2 {
+        font-size: 1.5rem;
+    }
+
+    .image-list img {
+        min-width: 120px;
+        width: 120px;
+        height: 180px;
     }
 
     .modal-content {
-        max-width: 800px;
-        padding: 30px;
+        padding: 25px;
+        width: 95%;
     }
 
-    .modal img {
-        width: 30%;
-        margin-right: 30px;
+    .modal-body-content {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
     }
 
-    .modal h2 {
-        font-size: 2.2em;
+    .modal-body-content img {
+        max-width: 180px;
+        margin: 0 auto 20px auto;
     }
 
-    .modal p {
-        font-size: 1.1em;
+    .modal-text-content {
+        min-width: unset; /* Remove min-width for mobile stacking */
     }
 
-    .search-modal .results {
-        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    /* Video player on mobile, maintain aspect ratio */
+    #modal-video {
+        padding-bottom: 56.25%; /* Still 16:9 */
     }
-  .search-modal input {
-    width: 80%; /* Width as a percentage of the parent */
-    /* ... */
+
+    .search-input-area {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    #search-input, .search-content button {
+        width: 100%;
+        max-width: none;
+    }
 }
-  .search-modal input {
-    width: 80%; /* Width as a percentage of the parent */
-    /* ... */
-}
-  
+
+@media (max-width: 480px) {
+    header h1 {
+        font-size: 1.3rem;
+    }
+
+    header button {
+        padding: 0.5em 1em;
+        font-size: 0.9rem;
+    }
+
+    #banner.swiper-container {
+        height: 350px; /* Further adjusted banner height */
+    }
+
+    .swiper-slide {
+        padding-bottom: 20px;
+    }
+
+    .banner-title {
+        font-size: 1.8rem;
+    }
+    .banner-overview {
+        font-size: 0.9rem;
+        margin-bottom: 15px;
+    }
+    .watch-now-button {
+        padding: 8px 20px;
+        font-size: 1rem;
+    }
+
+    .list-section h2 {
+        font-size: 1.3rem;
+    }
+
+    .image-list img {
+        min-width: 100px;
+        width: 100px;
+        height: 150px;
+    }
+
+    .modal-content {
+        padding: 20px;
+    }
+
+    .modal-content h2 {
+        font-size: 1.8rem;
+    }
+
+    #modal-description {
+        font-size: 1rem;
+    }
+
+    #modal-rating {
+        font-size: 1.6em;
+    }
+
+    /* Video player on very small screens, maintain aspect ratio */
+    #modal-video {
+        padding-bottom: 56.25%; /* Still 16:9 */
+    }
 }
