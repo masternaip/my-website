@@ -1,124 +1,100 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Netflix Clone</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23e50914' d='M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm-1.637 17.518V6.482h1.309c.89 0 1.503.228 1.839.684.336.457.504 1.127.504 2.012 0 .61-.106 1.11-.318 1.5s-.502.666-.889.882c.504.254.912.585 1.224.993.312.408.468.966.468 1.674 0 1.05-.285 1.77-.855 2.16-.57.39-1.393.585-2.469.585h-1.644zm1.309-1.341c.642 0 1.059-.114 1.251-.342.192-.228.288-.585.288-1.071 0-.642-.252-1.059-.756-1.251-.504-.192-1.206-.288-2.106-.288h-.396v2.952h1.719zm-1.719-5.112v-2.952h1.644c.954 0 1.602-.132 1.944-.396.342-.264.513-.762.513-1.494 0-.57-.129-.987-.387-1.251-.258-.264-.693-.396-1.305-.396h-2.41V6.482h1.188z'/%3E%3C/svg%3E" type="image/svg+xml">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>My Website</title>
+    <link rel="stylesheet" href="css/home.css">
+    <link rel="preload" href="css/home.css" as="style">
+    <link rel="preload" href="js/home.js" as="script">
+    <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script defer src="js/home.js"></script>
 </head>
 <body>
-    <header class="header">
-        <div class="logo">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Netflix_2015_logo.svg/1920px-Netflix_2015_logo.svg.png" alt="Netflix Logo">
+    <!-- Navbar -->
+    <div class="navbar">
+        <img src="https://static.vecteezy.com/system/resources/previews/022/580/623/non_2x/movie-media-letter-logo-design-illustration-free-vector.jpg" alt="LOGO HERE" />
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="#">Disclaimer</a>
+            <a href="#">About Us</a>
+            <input type="text" class="search-bar" placeholder="Search..." onfocus="openSearchModal()" readonly />
         </div>
-        <nav class="nav-links">
-            <ul>
-                <li><a href="#">Home</a></li>
-                <li><a href="#">TV Shows</a></li>
-                <li><a href="#">Movies</a></li>
-                <li><a href="#">New & Popular</a></li>
-                <li><a href="#">My List</a></li>
-            </ul>
-        </nav>
-        <div class="search-icon" onclick="openSearchModal()">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-        </div>
-    </header>
+    </div>
 
-    <main>
-        <section class="banner" id="banner">
-            <div class="banner-content">
-                <h1 id="banner-title"></h1>
-                <p id="banner-description"></p>
-                <div class="banner-buttons">
-                    <button class="play-button" onclick="showDetails(currentItem)">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-play"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
-                        Play
-                    </button>
-                    <button class="info-button" onclick="showDetails(currentItem)">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-info"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
-                        More Info
-                    </button>
-                </div>
+    <!-- Banner Section -->
+    <section class="banner" id="banner">
+        <div class="banner-content">
+            <h1 id="banner-title"></h1>
+            <p id="banner-description"></p>
+            <div class="banner-buttons">
+                <button class="play-button" onclick="showDetails(currentItem)">
+                    <i class="fa fa-play"></i> Play
+                </button>
+                <button class="info-button" onclick="showDetails(currentItem)">
+                    <i class="fa fa-info-circle"></i> More Info
+                </button>
             </div>
-            <div class="banner-nav-dots" id="banner-nav-dots"></div>
-        </section>
+        </div>
+        <div class="banner-nav-dots" id="banner-nav-dots"></div>
+    </section>
 
-        <section class="movie-list-section">
-            <h2>Trending Movies</h2>
-            <div class="movie-list" id="movies-list"></div>
-        </section>
+    <!-- Movie/TV/Anime Rows -->
+    <div class="row">
+        <h2>Trending Movies</h2>
+        <div class="list" id="movies-list"></div>
+    </div>
+    <div class="row">
+        <h2>Trending TV Shows</h2>
+        <div class="list" id="tvshows-list"></div>
+    </div>
+    <div class="row">
+        <h2>Trending Anime</h2>
+        <div class="list" id="anime-list"></div>
+    </div>
+    <div class="row">
+        <h2>Weekly Trend Movie</h2>
+        <div class="list" id="weekly-trend-movie-list"></div>
+    </div>
+    <div class="row">
+        <h2>Top HBO Movies</h2>
+        <div class="list" id="hbo-movies-list"></div>
+    </div>
+    <div class="row">
+        <h2>Top Netflix Movies</h2>
+        <div class="list" id="netflix-movies-list"></div>
+    </div>
+    <div class="row">
+        <h2>Top Marvel Movies</h2>
+        <div class="list" id="marvel-movies-list"></div>
+    </div>
+    <div class="row">
+        <h2>Top Disney Movies</h2>
+        <div class="list" id="disney-movies-list"></div>
+    </div>
 
-        <section class="movie-list-section">
-            <h2>Trending TV Shows</h2>
-            <div class="movie-list" id="tvshows-list"></div>
-        </section>
-
-        <section class="movie-list-section">
-            <h2>Weekly Trend Movie</h2>
-            <div class="movie-list" id="weekly-trend-movie-list"></div>
-        </section>
-
-        <section class="movie-list-section">
-            <h2>Top HBO Movies</h2>
-            <div class="movie-list" id="hbo-movies-list"></div>
-        </section>
-
-        <section class="movie-list-section">
-            <h2>Top Netflix Movies</h2>
-            <div class="movie-list" id="netflix-movies-list"></div>
-        </section>
-
-        <section class="movie-list-section">
-            <h2>Top Marvel Movies</h2>
-            <div class="movie-list" id="marvel-movies-list"></div>
-        </section>
-
-        <section class="movie-list-section">
-            <h2>Top Disney Movies</h2>
-            <div class="movie-list" id="disney-movies-list"></div>
-        </section>
-        </main>
-
-    <div id="modal" class="modal">
+    <!-- Modal -->
+    <div class="modal" id="modal">
         <div class="modal-content">
-            <span class="close-button" onclick="closeModal()">&times;</span>
+            <span class="close" onclick="closeModal()">&times;</span>
             <div class="modal-body">
                 <div class="modal-info">
-                    <img id="modal-image" src="" alt="Poster">
+                    <img id="modal-image" src="" alt="Poster" />
                     <div class="modal-text">
                         <h2 id="modal-title"></h2>
                         <p id="modal-description"></p>
-                        <div class="modal-rating" id="modal-rating"></div>
-                        <div class="server-selection">
-                            <label for="server">Choose Server:</label>
+                        <div class="stars" id="modal-rating"></div>
+                        <div class="server-selector">
+                            <label for="server">Change Server:</label>
                             <select id="server" onchange="changeServer()">
-                                <option value="vidsrc.cc">vidsrc.cc</option>
-                                <option value="vidsrc.me">vidsrc.me</option>
-                                <option value="player.videasy.net">player.videasy.net</option>
+                                <option value="vidsrc.cc">Vidsrc.cc</option>
+                                <option value="vidsrc.me">Vidsrc.me</option>
+                                <option value="player.videasy.net">Player.Videasy.net</option>
                             </select>
                         </div>
                     </div>
                 </div>
                 <div class="modal-video-container">
-                    <iframe id="modal-video" src="" frameborder="0" allowfullscreen></iframe>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="search-modal" class="modal">
-        <div class="modal-content search-modal-content">
-            <span class="close-button" onclick="closeSearchModal()">&times;</span>
-            <div class="search-input-container">
-                <input type="text" id="search-input" placeholder="Search for movies or TV shows..." onkeyup="searchTMDB()">
-                <button onclick="searchTMDB()">Search</button>
-            </div>
-            <div class="search-results" id="search-results"></div>
-        </div>
-    </div>
-
-    <script src="script.js"></script>
-</body>
-</html>
+                    <iframe id="modal-video" width="100%" height
+
